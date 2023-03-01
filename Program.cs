@@ -56,13 +56,22 @@ namespace ChatServer
         {
             var targetuser = _users.Where(x => x.Username.ToString() == targetusername).FirstOrDefault();
             var senderuser = _users.Where(x => x.Username.ToString() == sender).FirstOrDefault();
-            var msgPacket = new PacketBuilder();
-            msgPacket.WriteOpCode(55);
-            msgPacket.WriteMessage(message);
-            targetuser.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
-            Console.WriteLine(targetuser.Username+""+targetuser.UID);
-            senderuser.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
-            Console.WriteLine(senderuser.Username + "" + senderuser.UID);
+            if (targetuser == null)
+            {
+                var msgPacket = new PacketBuilder();
+                msgPacket.WriteOpCode(55);
+                msgPacket.WriteMessage("[ERROR] - User not found!");
+                senderuser.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
+                return;
+            }
+            else
+            {
+                var msgPacket = new PacketBuilder();
+                msgPacket.WriteOpCode(55);
+                msgPacket.WriteMessage(message);
+                targetuser.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
+                senderuser.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
+            }
         }
 
         public static void BroadcastDisconnect(string uid)
