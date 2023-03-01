@@ -13,3 +13,4 @@ C:\Users\varga\source\repos\ChatServer\obj\Debug\net6.0\refint\ChatServer.dll
 C:\Users\varga\source\repos\ChatServer\obj\Debug\net6.0\ChatServer.pdb
 C:\Users\varga\source\repos\ChatServer\obj\Debug\net6.0\ChatServer.genruntimeconfig.cache
 C:\Users\varga\source\repos\ChatServer\obj\Debug\net6.0\ref\ChatServer.dll
+C:\Users\varga\source\repos\ChatServer\bin\Debug\net6.0\ChatServer.dll.config

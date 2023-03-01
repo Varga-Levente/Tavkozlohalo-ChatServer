@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 
 namespace ChatServer
 {
@@ -50,7 +51,20 @@ namespace ChatServer
                 user.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
             }
         }
-        
+
+        public static void SendPrivateMessage(string message, string targetusername, string sender)
+        {
+            var targetuser = _users.Where(x => x.Username.ToString() == targetusername).FirstOrDefault();
+            var senderuser = _users.Where(x => x.Username.ToString() == sender).FirstOrDefault();
+            var msgPacket = new PacketBuilder();
+            msgPacket.WriteOpCode(55);
+            msgPacket.WriteMessage(message);
+            targetuser.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
+            Console.WriteLine(targetuser.Username+""+targetuser.UID);
+            senderuser.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
+            Console.WriteLine(senderuser.Username + "" + senderuser.UID);
+        }
+
         public static void BroadcastDisconnect(string uid)
         {
             var disconnectedUser = _users.Where(x => x.UID.ToString() == uid).FirstOrDefault();

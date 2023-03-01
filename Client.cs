@@ -40,6 +40,17 @@ namespace ChatServer
                             Console.WriteLine($"[{DateTime.Now}]: Message recieved! {msg}");
                             Program.BroadcastMessage( $"[{Username}]: {msg}" );
                             break;
+                        case 55:
+                            var pmp = _packetReader.ReadMessage();
+                            var pmsplit = pmp.Split(' ');
+                            var TARGETUSER = pmsplit[1].Replace("@", "");
+                            var pm = string.Join(" ", pmsplit.Skip(2));
+
+                            Console.WriteLine($"From: {Username} | To: {TARGETUSER} | Message: {pm}");
+
+                            //Console.WriteLine($"[{DateTime.Now}]: Pivate message recieved! From: {Username} | To: {TARGETUSER}");
+                            Program.SendPrivateMessage($"[Private][{Username}]: {pm}", TARGETUSER, Username);
+                            break;
                         default:
                             break;
                     }

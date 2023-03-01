@@ -1,0 +1,5 @@
+C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer.exe
+C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer.dll
+C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer.deps.json
+C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer.runtimeconfig.json
+C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer.pdb
