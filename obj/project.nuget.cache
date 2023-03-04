@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "C8q3tgX7Tm3NrPHchY5rMXf1AuIme9Wcqe/9FzCKD0Y2lQ63ajC6IyQGzXiE6AqLkqEsHvMOfuYUQUsvaeRwLw==",
+  "dgSpecHash": "Vfrp0j0aQJLeByYOhp1wse+UvTsNRvCrKwoiAyfsC0RZKzb49wl7ZgbmZOgnM32s+7WpENa8yO7RVhnIgDHRbA==",
   "success": true,
   "projectFilePath": "C:\\Users\\varga\\source\\repos\\ChatServer\\ChatServer.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\varga\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

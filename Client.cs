@@ -40,16 +40,24 @@ namespace ChatServer
                             Console.WriteLine($"[{DateTime.Now}]: Message recieved! {msg}");
                             Program.BroadcastMessage( $"[{Username}]: {msg}" );
                             break;
+                        case 20:
+                            var file = _packetReader.ReadMessage();
+                            Console.WriteLine($"[{DateTime.Now}]: File recieved! {file}");
+                            var fileSplit = file.Split('|');
+                            var toUser = fileSplit[0];
+                            var fileName = fileSplit[1];
+                            var filedownloadurl = fileSplit[2];
+
+                            Program.SendFile( Username, toUser, fileName, filedownloadurl );
+                            break;
                         case 55:
                             var pmp = _packetReader.ReadMessage();
                             var pmsplit = pmp.Split(' ');
                             var TARGETUSER = pmsplit[1].Replace("@", "");
                             var pm = string.Join(" ", pmsplit.Skip(2));
-
-                            Console.WriteLine($"From: {Username} | To: {TARGETUSER} | Message: {pm}");
-
-                            //Console.WriteLine($"[{DateTime.Now}]: Pivate message recieved! From: {Username} | To: {TARGETUSER}");
-                            Program.SendPrivateMessage($"[Private][{Username}]: {pm}", TARGETUSER, Username);
+                                //Console.WriteLine($"From: {Username} | To: {TARGETUSER} | Message: {pm}");
+                                //Console.WriteLine($"[{DateTime.Now}]: Pivate message recieved! From: {Username} | To: {TARGETUSER}");
+                            Program.SendPrivateMessage($"[{Username}]->[{TARGETUSER}]: {pm}", TARGETUSER, Username);
                             break;
                         default:
                             break;

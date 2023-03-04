@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Security.Cryptography;
 
 namespace ChatServer
@@ -71,6 +72,36 @@ namespace ChatServer
                 msgPacket.WriteMessage(message);
                 targetuser.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
                 senderuser.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
+            }
+        }
+
+        public static void SendFile(string fromUser, string filename, string targetusername, string fileurl)
+        {
+            Console.WriteLine("SendFile RUN");
+
+            Console.WriteLine("From: "+fromUser);
+            Console.WriteLine("To: " + targetusername);
+            Console.WriteLine("FileName: " + filename);
+            Console.WriteLine("DownloadURL: " + fileurl);
+
+            var newfileurl = fileurl.Replace("localhost","10.10.0.200");
+
+
+            var targetuser = _users.Where(x => x.Username.ToString() == targetusername).FirstOrDefault();
+            var senderuser = _users.Where(x => x.Username.ToString() == fromUser).FirstOrDefault();
+            
+            if (targetuser != null)
+            {
+                var filePacket = new PacketBuilder();
+                filePacket.WriteOpCode(21);
+                filePacket.WriteMessage($"{fromUser}|{filename}|{newfileurl}");
+                targetuser.ClientSocket.Client.Send(filePacket.GetPacketBytes());
+
+                var senderinfo = new PacketBuilder();
+                senderinfo.WriteOpCode(55);
+                senderinfo.WriteMessage("[FILE] - The file sending request has been sent successfully.");
+                senderuser.ClientSocket.Client.Send(senderinfo.GetPacketBytes());
+
             }
         }
 
