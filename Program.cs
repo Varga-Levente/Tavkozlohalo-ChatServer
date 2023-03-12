@@ -1,9 +1,6 @@
 ﻿using ChatServer.Net.IO;
-using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Reflection;
-using System.Security.Cryptography;
 
 namespace ChatServer
 {
@@ -11,6 +8,9 @@ namespace ChatServer
     {
         static List<Client> _users;
         static TcpListener _listener;
+
+        // Main function starts the server and listens for incoming connections on port 7890
+        // (Currently the port is not editable)
         static void Main(string[] args)
         {
             _users = new List<Client>();
@@ -27,6 +27,7 @@ namespace ChatServer
             }
         }
 
+        // Broadcasts the connection to all users on the server
         static void BroadcastConnection()
         {
             foreach (var user in _users)
@@ -42,6 +43,7 @@ namespace ChatServer
             }
         }
 
+        // Broadcasts the message to all users on the server
         public static void BroadcastMessage(string message)
         {
             foreach(var user in _users)
@@ -53,6 +55,8 @@ namespace ChatServer
             }
         }
 
+
+        // Sends a private message to a specific user
         public static void SendPrivateMessage(string message, string targetusername, string sender)
         {
             var targetuser = _users.Where(x => x.Username.ToString() == targetusername).FirstOrDefault();
@@ -75,17 +79,10 @@ namespace ChatServer
             }
         }
 
+        // Sends a file to a specific user
         public static void SendFile(string fromUser, string filename, string targetusername, string fileurl)
         {
-            Console.WriteLine("SendFile RUN");
-
-            Console.WriteLine("From: "+fromUser);
-            Console.WriteLine("To: " + targetusername);
-            Console.WriteLine("FileName: " + filename);
-            Console.WriteLine("DownloadURL: " + fileurl);
-
-            var newfileurl = fileurl.Replace("localhost","10.10.0.200");
-
+            Console.WriteLine($"File saved on API server. From: {fromUser} | File: {filename} | To: {targetusername}");
 
             var targetuser = _users.Where(x => x.Username.ToString() == targetusername).FirstOrDefault();
             var senderuser = _users.Where(x => x.Username.ToString() == fromUser).FirstOrDefault();
@@ -94,7 +91,7 @@ namespace ChatServer
             {
                 var filePacket = new PacketBuilder();
                 filePacket.WriteOpCode(21);
-                filePacket.WriteMessage($"{fromUser}|{filename}|{newfileurl}");
+                filePacket.WriteMessage($"{fromUser}|{filename}|{fileurl}");
                 targetuser.ClientSocket.Client.Send(filePacket.GetPacketBytes());
 
                 var senderinfo = new PacketBuilder();
@@ -105,6 +102,7 @@ namespace ChatServer
             }
         }
 
+        // Broadcasts the disconnection to all users on the server
         public static void BroadcastDisconnect(string uid)
         {
             var disconnectedUser = _users.Where(x => x.UID.ToString() == uid).FirstOrDefault();

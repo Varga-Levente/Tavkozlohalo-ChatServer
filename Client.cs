@@ -11,6 +11,7 @@ namespace ChatServer
 
         PacketReader _packetReader;
 
+        // Client constructor creates new PacketReader instance
         public Client(TcpClient client)
         {
             ClientSocket = client;
@@ -26,6 +27,11 @@ namespace ChatServer
 
         }
 
+        // Process the incoming packets from the client and handle them accordingly (opcode)
+        // Opcode 5 is a global message
+        // Opcode 20 is a file
+        // Opcode 55 is a private message
+        // On catch (Exception) the client has disconnected
         void Process()
         {
             while ( true )
@@ -37,7 +43,7 @@ namespace ChatServer
                     {
                         case 5:
                             var msg = _packetReader.ReadMessage();
-                            Console.WriteLine($"[{DateTime.Now}]: Message recieved! {msg}");
+                            Console.WriteLine($"[{DateTime.Now}]: Global message recieved!");
                             Program.BroadcastMessage( $"[{Username}]: {msg}" );
                             break;
                         case 20:
@@ -48,6 +54,8 @@ namespace ChatServer
                             var fileName = fileSplit[1];
                             var filedownloadurl = fileSplit[2];
 
+                            Console.WriteLine($"{fileName}");
+
                             Program.SendFile( Username, toUser, fileName, filedownloadurl );
                             break;
                         case 55:
@@ -55,8 +63,7 @@ namespace ChatServer
                             var pmsplit = pmp.Split(' ');
                             var TARGETUSER = pmsplit[1].Replace("@", "");
                             var pm = string.Join(" ", pmsplit.Skip(2));
-                                //Console.WriteLine($"From: {Username} | To: {TARGETUSER} | Message: {pm}");
-                                //Console.WriteLine($"[{DateTime.Now}]: Pivate message recieved! From: {Username} | To: {TARGETUSER}");
+                            Console.WriteLine($"[Private Message] - From: {Username} | To: {TARGETUSER}");
                             Program.SendPrivateMessage($"[{Username}]->[{TARGETUSER}]: {pm}", TARGETUSER, Username);
                             break;
                         default:
@@ -65,7 +72,7 @@ namespace ChatServer
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine($"[{UID.ToString()}]: Disconnected!");
+                    Console.WriteLine($"[{Username}][{UID.ToString()}]: Disconnected!");
                     Program.BroadcastDisconnect(UID.ToString());
                     ClientSocket.Close();
                     break;

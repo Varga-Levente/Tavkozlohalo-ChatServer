@@ -2,4 +2,6 @@ C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer
 C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer.dll
 C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer.deps.json
 C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer.runtimeconfig.json
+C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer.dll.config
 C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\ChatServer.pdb
+C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\app.publish\Newtonsoft.Json.dll

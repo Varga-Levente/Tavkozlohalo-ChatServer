@@ -13,6 +13,9 @@ C:\Users\varga\source\repos\ChatServer\obj\Release\net6.0\refint\ChatServer.dll
 C:\Users\varga\source\repos\ChatServer\obj\Release\net6.0\ChatServer.pdb
 C:\Users\varga\source\repos\ChatServer\obj\Release\net6.0\ChatServer.genruntimeconfig.cache
 C:\Users\varga\source\repos\ChatServer\obj\Release\net6.0\ref\ChatServer.dll
+C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\ChatServer.dll.config
+C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\Newtonsoft.Json.dll
+C:\Users\varga\source\repos\ChatServer\obj\Release\net6.0\ChatServer.csproj.CopyComplete
 C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\ChatServer.dll.manifest
 C:\Users\varga\source\repos\ChatServer\bin\Release\net6.0\ChatServer.application
 C:\Users\varga\source\repos\ChatServer\obj\Release\net6.0\ChatServer.dll.manifest
